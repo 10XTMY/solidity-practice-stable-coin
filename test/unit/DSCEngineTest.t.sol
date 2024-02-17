@@ -37,7 +37,7 @@ contract DSCEngineTest is Test {
     function testGetUsdValue() public {
         uint256 ethAmount = 15e18;
         // 15e18 * 2000/ETH = 30,000e18
-        uint256 expectedUsd = 30000e18;
+        uint256 expectedUsd = 30000e18; // this should be agnostic, update to use actual price feed for testnets
         uint256 actualUsd = engine.getUsdValue(weth, ethAmount);
         assertEq(actualUsd, expectedUsd);
     }
