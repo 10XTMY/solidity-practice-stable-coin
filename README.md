@@ -6,4 +6,3 @@
 3. Collateral type: Exogenous (Crypto)
     1. wETH
     2. wBTC (wrapped BTC is a little centralised depending on who is onboarding the BTC from ETH)
-
