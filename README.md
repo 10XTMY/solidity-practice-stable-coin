@@ -6,3 +6,27 @@
 3. Collateral type: Exogenous (Crypto)
     1. wETH
     2. wBTC (wrapped BTC is a little centralised depending on who is onboarding the BTC from ETH)
+
+# Invariants and Properties
+
+### Invariant: 
+Property of our system that should always hold.
+
+### Property: 
+
+# Symbolic Execution/Formal Verification
+
+# Fuzz/Invariant Testing
+
+Test multiple scenarios at once, supplying random data to your system to try and break it.
+
+Instead of defining variables inside the test function, leave them as parameters and forge test will use all possible input data to test it.
+
+The way the fuzzer picks the "random" data needs to be studied...
+
+### Stateless Fuzzing: Where the state of the previous run is discarded every new run.
+
+### Stateful Fuzzing (Invariant testing): Ending state of previous run considered starting state on next run
+* Requires import StdInvariant from forge-std/StdInvariant.sol
+* Use invariant_ keyword: function invariant_testAwlaysReturnsZero()
+* Contract is StdInvariant
