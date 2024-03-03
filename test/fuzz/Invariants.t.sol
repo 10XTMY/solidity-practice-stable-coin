@@ -1,5 +1,6 @@
 // SPDX-License-Identifier: MIT
 
+// Invariant/Fuzz Testing
 // contains properties that should always hold
 
 // what are our invariants?
