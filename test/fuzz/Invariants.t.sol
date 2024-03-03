@@ -49,4 +49,15 @@ contract Invariants is StdInvariant, Test {
 
         assert(wethValue + wbtcValye >= totalSupply);
     }
+
+    function invariant_gettersShouldNotRevert() public view {
+        // we can call any getter function here
+        // and assert that it does not revert
+        // in terminal use:
+        // forge inspect <contractName> methods
+        // eg. forge inspect DSCEngine methods
+        // this displays all the methods in the contract
+        dsce.getLiquidationBonus();
+        dsce.getPrecision();
+    }
 }
