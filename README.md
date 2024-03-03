@@ -11,12 +11,11 @@
 - set health factor if debt is 0
 - use Handler based testing
 
-
 1. Proper oracle use:
     see libraries folder in src
 2. Smart Contract Audit Prep
     read: https://github.com/nascentxyz/simple-security-toolkit/blob/main/audit-readiness-checklist.md
-    
+
 
 # Invariants and Properties
 
@@ -38,6 +37,5 @@ The way the fuzzer picks the "random" data needs to be studied...
 ### Stateless Fuzzing: Where the state of the previous run is discarded every new run.
 
 ### Stateful Fuzzing (Invariant testing): Ending state of previous run considered starting state on next run
-* Requires import StdInvariant from forge-std/StdInvariant.sol
 * Use invariant_ keyword: function invariant_testAwlaysReturnsZero()
 * Contract is StdInvariant
