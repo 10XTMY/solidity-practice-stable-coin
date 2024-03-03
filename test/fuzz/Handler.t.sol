@@ -79,7 +79,8 @@ contract Handler is Test {
     function redeemCollateral(uint256 collateralSeed, uint256 collateralAmount) public {
         ERC20Mock collateral = _getCollateralFromSeed(collateralSeed);
         uint256 maxCollateralToRedeem = dsce.getCollateralBalanceOfUser(address(collateral), msg.sender);
-        // if there was a bug where a user could redeem more than they have
+
+        // If there was a bug where a user could redeem more than they have
         // this fuzz test would NOT catch it!
         // this is because we are using the actual balance of the user
         // if we used MAX_DEPOSIT_SIZE instead, we would catch the bug
