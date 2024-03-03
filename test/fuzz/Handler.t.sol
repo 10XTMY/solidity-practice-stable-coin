@@ -9,6 +9,14 @@ import {Test} from "forge-std/Test.sol";
 import {DSCEngine} from "../../src/DSCEngine.sol";
 import {DecentralisedStableCoin} from "../../src/DecentralisedStableCoin.sol";
 import {ERC20Mock} from "@openzepplin/contracts/mocks/ERC20Mock.sol";
+// for testing price feeds
+import {MockV3Aggregator} from "@chainlink/contracts/src/v0.8/tests/MockV3Aggregator.sol";
+
+// other contracts we interact with:
+// PriceFeed
+// WETH Token
+// WBTC Token
+// ...handler should have tests for all contracts we interact with...
 
 contract Handler is Test {
     DSCEngine dsce;
@@ -18,6 +26,8 @@ contract Handler is Test {
     ERC20Mock wbtc;
 
     address[] public usersWithCollateral;
+    // for price feed test
+    MockV3Aggregator public ethUsdPriceFeed;
 
     uint256 MAX_DEPOSIT_SIZE = type(uint96).max;
 
@@ -28,6 +38,9 @@ contract Handler is Test {
         address[] memory collateralTokens = dsce.getCollateralTokens();
         weth = ERC20Mock(collateralTokens[0]);
         wbtc = ERC20Mock(collateralTokens[1]);
+
+        // for price feed test
+        ethUsdPriceFeed = MockV3Aggregator(dsce.getCollateralTokenPriceFeed(address(weth)));
     }
 
     function mintDsc(uint256 dscAmount, uint256 addressSeed) public {
@@ -93,6 +106,15 @@ contract Handler is Test {
         }
         dsce.redeemCollateral(address(collateral), collateralAmount);
     }
+
+    // ----------------- Price Feed Test -----------------
+    // this test breaks the test suite due to a bug in the invariant
+    // contract has not been built to withstand price spikes yet
+    // see line 50 in Invariants.t.sol
+    // function updateCollateralPrice(uint256 newPrice) public {
+    //     int256 newPriceInt = int256(uint256(newPrice));
+    //     ethUsdPriceFeed.updateAnswer(newPriceInt);
+    // }
 
     // Helper functions
     function _getCollateralFromSeed(uint256 collateralSeed) private view returns (ERC20Mock) {

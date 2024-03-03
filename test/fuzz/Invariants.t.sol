@@ -47,6 +47,9 @@ contract Invariants is StdInvariant, Test {
         uint256 wethValue = dsce.getUsdValue(weth, totalWethDeposited);
         uint256 wbtcValye = dsce.getUsdValue(wbtc, totalBtcDeposited);
 
+        // bug here, if the price spikes drops suddenly, our system crashes
+        // a huge drop say to 50% in one block would break the system
+        // this was discovered in the fuzz/invariant price feed tests
         assert(wethValue + wbtcValye >= totalSupply);
     }
 
