@@ -37,5 +37,9 @@ The way the fuzzer picks the "random" data needs to be studied...
 ### Stateless Fuzzing: Where the state of the previous run is discarded every new run.
 
 ### Stateful Fuzzing (Invariant testing): Ending state of previous run considered starting state on next run
+
 * Use invariant_ keyword: function invariant_testAwlaysReturnsZero()
 * Contract is StdInvariant
+
+# Known bugs
+* if price drops through the floor suddenly in a block, system becomes insolvent
