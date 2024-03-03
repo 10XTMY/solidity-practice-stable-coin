@@ -11,9 +11,12 @@
 - set health factor if debt is 0
 - use Handler based testing
 
-Next:
-1. Proper oracle use
+
+1. Proper oracle use:
+    see libraries folder in src
 2. Smart Contract Audit Prep
+    read: https://github.com/nascentxyz/simple-security-toolkit/blob/main/audit-readiness-checklist.md
+    
 
 # Invariants and Properties
 
