@@ -11,6 +11,10 @@
 - set health factor if debt is 0
 - use Handler based testing
 
+Next:
+1. Proper oracle use
+2. Smart Contract Audit Prep
+
 # Invariants and Properties
 
 ### Invariant: 

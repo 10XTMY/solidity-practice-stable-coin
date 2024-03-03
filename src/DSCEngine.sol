@@ -32,6 +32,7 @@ import {ReentrancyGuard} from "@openzepplin/contracts/security/ReentrancyGuard.s
 import {IERC20} from "@openzepplin/contracts/token/ERC20/IERC20.sol";
 import {AggregatorV3Interface} from "@chainlink/contracts/src/v0.8/interfaces/AggregatorV3Interface.sol";
 import {console} from "forge-std/console.sol";
+import {OracleLib} from "./libraries/OracleLib.sol";
 
 /**
  * @title DSCEngine
@@ -70,6 +71,11 @@ contract DSCEngine is ReentrancyGuard {
     error DSCEngine__HealthFactorOk();
     error DSCEngine__HealthFactorNotImproved();
     error DSCEngine__AlreadyDeposited();
+
+    ///////////////
+    // Types    //
+    /////////////
+    using OracleLib for AggregatorV3Interface;
 
     ////////////////////////
     // State Variables   //
@@ -400,7 +406,7 @@ contract DSCEngine is ReentrancyGuard {
 
     function _getUsdValue(address token, uint256 amount) private view returns (uint256) {
         AggregatorV3Interface priceFeed = AggregatorV3Interface(s_priceFeeds[token]);
-        (, int256 price,,,) = priceFeed.latestRoundData();
+        (, int256 price,,,) = priceFeed.staleCheckLatestRoundData();
         // 1ETH = $1,000
         // The returned value from CL will be 1000 * 1e8 (ETH USD has 8 decimal places)
         // return price * amount; <-- ths will overflow (wei conversion eg:
@@ -425,7 +431,8 @@ contract DSCEngine is ReentrancyGuard {
 
     function getTokenAmountFromUsd(address token, uint256 amountInWei) public view returns (uint256) {
         AggregatorV3Interface priceFeed = AggregatorV3Interface(s_priceFeeds[token]);
-        (, int256 price,,,) = priceFeed.latestRoundData();
+        // (, int256 price,,,) = priceFeed.latestRoundData();
+        (, int256 price,,,) = priceFeed.staleCheckLatestRoundData();
         // 1ETH = $2,000
         // ($10e18 * 1e18) / (2000 * 1e10) = 5e18
         // 0.005000000000000000 <- How much ETH you get for $10 of debt (10/2000 = 0.005)
