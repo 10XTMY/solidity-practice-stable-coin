@@ -7,4 +7,15 @@ remappings = [
     "@chainlink/contracts=lib/chainlink-brownie-contracts/contracts",
 ]
 
+[invariant]
+runs = 128
+depth = 128
+fail_on_revert = true
+
+# when fail on revert is false it allows for the invariant to continue running even if a revert is encountered
+# this is useful for testing the invariant on a contract that is not yet fully implemented
+# set it true when you want to start fixing the reverts
+# there may also be cases where you want to let things revert, for example if you are testing a revert condition,
+# and failing would mean the end of the test.
+
 # See more config options https://github.com/foundry-rs/foundry/blob/master/crates/config/README.md#all-options

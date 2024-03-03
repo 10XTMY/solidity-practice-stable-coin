@@ -7,6 +7,10 @@
     1. wETH
     2. wBTC (wrapped BTC is a little centralised depending on who is onboarding the BTC from ETH)
 
+- calculate health factor function
+- set health factor if debt is 0
+- use Handler based testing
+
 # Invariants and Properties
 
 ### Invariant: 
